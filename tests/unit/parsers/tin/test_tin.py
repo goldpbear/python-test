@@ -5,8 +5,8 @@ from random import randint
 import pytest
 from faker import Faker
 
-from optimus.parsers.tin import TINParser
-from optimus.models.tin import TINModel
+from ironhide.parsers.tin import TINParser
+from ironhide.models.tin import TINModel
 
 
 Faker.seed(randint(0, 1000000))
