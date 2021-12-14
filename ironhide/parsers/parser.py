@@ -1,7 +1,7 @@
 """Superclass of all parsers"""
 from abc import ABCMeta, abstractmethod
 
-from optimus.models.model import Model
+from ironhide.models.model import Model
 
 
 class Parser(metaclass=ABCMeta):
