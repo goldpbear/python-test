@@ -43,13 +43,13 @@ class TINParser(Parser):
         """
 
         try:
-            for item in raw:
+            for i in raw:
                 # Bad TINs:
-                for i in ("111111111", "333333333", "666666666", "123456789"):
-                    if i == item:
+                for j in ("111111111", "333333333", "666666666", "123456789"):
+                    if j == i:
                         raise Exception
                 counter = Counter()
-                counter.add_item(item)
+                counter.add_item(i)
 
             all_counts = counter.get_counts()
 
