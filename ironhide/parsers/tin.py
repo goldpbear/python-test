@@ -3,9 +3,9 @@ from __future__ import annotations
 
 from typing import Dict, List, Union, Optional, Any
 
-from optimus.models.tin import TINModel
-from optimus.parsers.parser import Parser
-from optimus.models.model import Model
+from ironhide.models.tin import TINModel
+from ironhide.parsers.parser import Parser
+from ironhide.models.model import Model
 
 
 class Counter:
