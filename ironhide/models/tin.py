@@ -1,7 +1,7 @@
 """TIN Parser"""
 from dataclasses import dataclass
 
-from optimus.models.model import Model
+from ironhide.models.model import Model
 
 
 @dataclass
