@@ -6,8 +6,7 @@ from ironhide.models.model import Model
 
 @dataclass
 class TINModel(Model):
-    """taxpayer id data model"""
+    """taxpayer id data model, holds TIN and a count of that TIN in each roster."""
 
-    area_number: str
-    group_number: str
-    serial_number: str
+    tin: str
+    count: int
