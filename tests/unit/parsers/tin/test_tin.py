@@ -20,4 +20,4 @@ INVALID_NUMS = [[f"{_}{_+3}", "INVALID"] for _ in range(50)]
 @pytest.mark.parametrize("tin, tin_type", SSNS)
 def test_tin(tin, tin_type):
     # TODO: add tests
-    pass
+    assert False
