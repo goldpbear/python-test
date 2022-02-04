@@ -41,3 +41,15 @@ def test_duplicate_tins():
 
     for item in parsed_duplicate_tins:
         assert item.count == 2
+
+# @pytest.mark.skip(reason="not testing right now")
+def test_tin_itin():
+    # Valid ITIN: 1st digit is 9, 4th/5th digits not in the ranges: 50 – 65, 88, 90 – 92, 94 – 99
+    list_of_valid_itins = [["900-50-1234", "ITIN"], ["999-88-1234", "ITIN"]]
+
+    for itin in list_of_valid_itins:
+        assert TINParser.is_valid_tin(itin[0]) is True
+
+    parsed_valid_itins = TINParser.parse(list_of_valid_itins)
+
+    assert len(parsed_valid_itins) == 2
