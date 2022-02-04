@@ -53,3 +53,14 @@ def test_tin_itin():
     parsed_valid_itins = TINParser.parse(list_of_valid_itins)
 
     assert len(parsed_valid_itins) == 2
+
+# @pytest.mark.skip(reason="not testing right now")
+def test_empty_tins():
+    empty_string = TINParser.parse("")
+    assert len(empty_string) == 0
+
+    empty_list = TINParser.parse([])
+    assert len(empty_list) == 0
+
+    mixed_set_of_empty_elements = TINParser.parse([[], ["",""], "", ["", "INVALID"]])
+    assert len(mixed_set_of_empty_elements) == 0

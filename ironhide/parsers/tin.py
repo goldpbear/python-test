@@ -88,6 +88,20 @@ class TINParser(Parser):
         """
 
         try:
+            # If the input is a list, and it's empty, there is nothing to process, exit immediately
+            if type(raw).__name__ == 'list':
+                if (len(raw) == 0):
+                    print("No TINs to process")
+                    logger.info("No TINs to process")
+                    return []
+            
+            # If the input is a string, and it's empty, there is nothing to process, exit immediately
+            if type(raw).__name__ == 'str':
+                if not raw:
+                    print("No TINs to process")
+                    logger.info("No TINs to process")
+                    return []
+
             counter = Counter()
 
             for i in raw:
