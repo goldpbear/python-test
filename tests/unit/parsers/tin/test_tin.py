@@ -1,6 +1,7 @@
 """Testing module for TIN models."""
 
 from random import randint
+from unittest import skip
 
 import pytest
 from faker import Faker

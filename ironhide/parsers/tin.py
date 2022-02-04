@@ -1,4 +1,3 @@
-"""Parse TIN Number"""
 from __future__ import annotations
 
 from typing import Dict, List, Union, Optional, Any
@@ -28,11 +27,8 @@ class Counter:
             self.counts[item] = self.counts[item] + 1
 
     def get_counts(self):
-        """
-        get all counts
-        """
+        """get all counts"""
         return self.counts
-
 
 class TINParser(Parser):
     """TIN Parser."""
