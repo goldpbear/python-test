@@ -11,7 +11,7 @@ from ironhide.models.model import Model
 class Counter:
     """Count numbers of things"""
 
-    def __init__():
+    def __init__(self):
         """init"""
         self.counts = {}
 
