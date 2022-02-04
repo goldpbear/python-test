@@ -38,6 +38,31 @@ class TINParser(Parser):
     """TIN Parser."""
 
     @classmethod
+    def handle_invalid_tins(cls, invalid_tins_counter):
+        """If there are any invalid TINs detected, gracefully handle them.
+        Right now we are outputting to stdout and submitting a log.  This could be extended to submit
+        a list to a dead letter queue, some sort of data store, trigger an alert for an on-call engineer.
+
+        Args:
+        invalid_tins_counter: The Counter object of invalid TINs showing number of each invalid item.
+
+        Returns:
+        Nothing
+
+        Raises:
+        Nothing
+        """
+
+        invalid_tins = []
+
+        # Build the list of TINModels to report
+        for k, v in invalid_tins_counter.get_counts().items():
+            invalid_tins.append(TINModel(tin=k, count=v))
+
+        print(f'Found invalid TINs: {invalid_tins}')
+        logger.info(f'Found invalid TINs: {invalid_tins}')
+
+    @classmethod
     def is_valid_tin(cls, tin):
         """Validates a TIN.  May be a SSN or ITIN.  The rules for validation are:
             Valid TIN - ITIN: /^9\d{2}-?((5[0-9]|6[0-5])|(8[3-8])|(9[0-2])|(9[4-9]))-?\d{4}$/
@@ -103,6 +128,7 @@ class TINParser(Parser):
                     return []
 
             counter = Counter()
+            invalid_tins_counter = Counter()
 
             for i in raw:
                 if len(i) > 0:
@@ -114,10 +140,14 @@ class TINParser(Parser):
                     else:
                         print(f'Invalid TIN: {tin}')
                         logger.info(f'Invalid TIN: {tin}')
+                        invalid_tins_counter.add_item(tin)
 
             models = []
             for k, v in counter.get_counts().items():
                 models.append(TINModel(tin=k, count=v))
+
+            if len(invalid_tins_counter.get_counts()) > 0:
+                cls.handle_invalid_tins(invalid_tins_counter)
 
             return models
 
