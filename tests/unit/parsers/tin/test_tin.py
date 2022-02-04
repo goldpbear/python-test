@@ -64,3 +64,49 @@ def test_empty_tins():
 
     mixed_set_of_empty_elements = TINParser.parse([[], ["",""], "", ["", "INVALID"]])
     assert len(mixed_set_of_empty_elements) == 0
+
+# @pytest.mark.skip(reason="not testing right now")
+def test_invalid_tins():
+    # Build list of invalid TINs
+    invalid_tins = []
+
+    # Invalid TIN - SSN: 111-11-1111, 333-33-3333, 666-66-6666, 123-45-6789
+    invalid_tins.append(["111-11-1111", "INVALID"])
+    invalid_tins.append(["333-33-3333", "INVALID"])
+    invalid_tins.append(["666-66-6666", "INVALID"])
+    invalid_tins.append(["123-45-6789", "INVALID"])
+
+    # Invalid TIN - SSN: Area Numbers (first 3 digits) - 000, 666
+    invalid_tins.append(["000-45-6789", "INVALID"])
+    invalid_tins.append(["666-45-6789", "INVALID"])
+
+    # Invalid TIN - SSN: Group Numbers (4th / 5th digits) - 00
+    invalid_tins.append(["123-00-6789", "INVALID"])
+
+    # Invalid TIN - SSN: Serial Numbers (last 4 digits) - 0000
+    invalid_tins.append(["123-45-0000", "INVALID"])
+
+    # Invalid TIN - ITIN: 1st digit is 9, 4th/5th digits not in the ranges: 50 – 65, 88, 90 – 92, 94 – 99
+    invalid_tins.append(["923-45-6789", "INVALID"])
+    invalid_tins.append(["923-67-6789", "INVALID"])
+    invalid_tins.append(["923-89-6789", "INVALID"])
+    invalid_tins.append(["923-93-6789", "INVALID"])
+
+    # invalid format
+    invalid_tins.append(["92-345-4444", "INVALID"])
+    invalid_tins.append(["92-345-4-444", "INVALID"])
+    invalid_tins.append(["923454444", "INVALID"])
+
+    # non-numeric characters
+    invalid_tins.append(["abcdefghi", "INVALID"])
+    invalid_tins.append(["abc-de-fghi", "INVALID"])
+
+    # non-string TIN
+    invalid_tins.append([9234544444, "INVALID"])
+
+    # incorrect number of digits
+    invalid_tins.append(["923-45-", "INVALID"])
+    invalid_tins.append(["923-45-44444", "INVALID"])
+
+    list_of_invalid_combinations = TINParser.parse(invalid_tins)
+    assert len(list_of_invalid_combinations) == 0
