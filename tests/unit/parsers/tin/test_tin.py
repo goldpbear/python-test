@@ -32,3 +32,12 @@ def test_tin(tin, tin_type):
     for tinmodel in parsed_list_of_valid_ssns:
         assert type(tinmodel).__name__ is "TINModel"
         assert tinmodel.count > 0
+
+# @pytest.mark.skip(reason="not testing right now")
+def test_duplicate_tins():
+    list_of_duplicate_tins = [["500-50-1234", "SSN"], ["500-50-1234", "SSN"], ["999-88-1234", "ITIN"], ["999-88-1234", "ITIN"]]
+
+    parsed_duplicate_tins = TINParser.parse(list_of_duplicate_tins)
+
+    for item in parsed_duplicate_tins:
+        assert item.count == 2
